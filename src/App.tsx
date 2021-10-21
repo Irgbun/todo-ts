@@ -27,7 +27,7 @@ export class App extends React.Component<{}, StateTypes> {
     this.setState({ value: event.target.value });
   };
 
-  buttonOnClick = () => {
+  onClick = () => {
     this.setState((prevState) => ({
       todos: [
         ...prevState.todos,
@@ -66,7 +66,7 @@ export class App extends React.Component<{}, StateTypes> {
       <div>
         <div>
           <Input value={ this.state.value } onChange={ this.onChange } />
-          {/* <Button onClick={this.buttonOnClick}>Add task</Button> */}
+          <Button onClick={ this.onClick }>Add task</Button>
         </div>
         <div>
           <RadioGroup
