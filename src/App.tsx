@@ -5,12 +5,12 @@ import { RadioGroup, Input, Button, TaskList } from './components'
 
 interface StateTypes {
   value: string;
-  todos: object;
+  todos: { id: string; text: string; isDone: boolean }[];
   filter: string;
 }
 
-export class App extends React.Component {
-  state: StateTypes = {
+export class App extends React.Component<{}, StateTypes> {
+  state = {
     value: "",
     todos: [
       { id: "1", text: "Play", isDone: false },
@@ -23,7 +23,7 @@ export class App extends React.Component {
     filter: "all"
   };
 
-  changeValue = (event: any) => {
+  onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: event.target.value });
   };
 
@@ -31,7 +31,7 @@ export class App extends React.Component {
     this.setState((prevState) => ({
       todos: [
         ...prevState.todos,
-        { text: prevState.value, isDone: false, id: prevState.todos.length + 1 }
+        { text: prevState.value, isDone: false, id: (prevState.todos.length + 1).toString() }
       ],
       value: ""
     }));
@@ -49,43 +49,34 @@ export class App extends React.Component {
     }));
   };
 
-  changeRadioButton = (event: any) => {
-    this.setState({ filter: event.target.value });
+  changeRadioButton = (filter: string) => {
+    this.setState({ filter });
   };
 
 
   render() {
+
+    const options = [
+      { key: "all" , label: "Всё"  },
+      { key: "done" , label: "Сделано"  },
+      { key: "undone" , label: "Не сделано"  },
+    ]
+
     return (
       <div>
         <div>
-          <Input value={this.state.value} onChange={this.changeValue} />
-          <Button onClick={this.buttonOnClick}>Add task</Button>
+          <Input value={ this.state.value } onChange={ this.onChange } />
+          {/* <Button onClick={this.buttonOnClick}>Add task</Button> */}
         </div>
         <div>
           <RadioGroup
-            value="all"
-            checked={this.state.filter === "all"}
-            onChange={this.changeRadioButton}
-          >
-            Всё
-          </RadioGroup>
-          <RadioGroup
-            value="undone"
-            checked={this.state.filter === "undone"}
-            onChange={this.changeRadioButton}
-          >
-            Не сделано
-          </RadioGroup>
-          <RadioGroup
-            value="done"
-            checked={this.state.filter === "done"}
-            onChange={this.changeRadioButton}
-          >
-            Сделано
-          </RadioGroup>
+            value={ this.state.filter }
+            options={ options }
+            onChange={ this.changeRadioButton }
+          />
         </div>
         <div>
-          <TaskList props={(this.changeCheckBox, this.state)} />
+          {/* <TaskList props={(this.changeCheckBox, this.state)} /> */}
         </div>
       </div>
     )

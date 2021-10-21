@@ -1,9 +1,14 @@
 import React from 'react';
 
-export class Input extends React.Component {
+interface InputProps {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export class Input extends React.Component<InputProps> {
   render() {
     return (
-        <input value={ this.props.value } onChange={ this.props.changeValue } />
+        <input value={ this.props.value } onChange={ this.props.onChange } />
     )
   }
 }
