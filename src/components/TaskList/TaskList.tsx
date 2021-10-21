@@ -1,14 +1,18 @@
 import React from 'react';
 
-export class TaskList extends React.Component {
+interface TaskListProps {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export class TaskList extends React.Component<TaskListProps> {
   render() {
     return (
       <ul>
             {this.props.todos
               .filter((item) => {
-                if (this.props.filter == "all") {
+                if (this.props.filter === "all") {
                   return true;
-                } else if (this.props.filter == "done") {
+                } else if (this.props.filter === "done") {
                   return item.isDone;
                 } else {
                   return !item.isDone;

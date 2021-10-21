@@ -76,7 +76,7 @@ export class App extends React.Component<{}, StateTypes> {
           />
         </div>
         <div>
-          {/* <TaskList props={(this.changeCheckBox, this.state)} /> */}
+          <TaskList onChange={ this.changeCheckBox } />
         </div>
       </div>
     )
